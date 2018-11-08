@@ -18,6 +18,11 @@ public class LibraryControl {
 
     public LibraryControl() {
         dataReader = new DataReader();
+
+
+
+
+
         library = new Library();
     }
 
