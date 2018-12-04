@@ -1,6 +1,8 @@
 package data;
 
 
+import java.util.Objects;
+
 public class Publication {
     private int year;
     private String title;
@@ -34,5 +36,21 @@ public class Publication {
         setYear(year);
         setTitle(title);
         setPublisher(publisher);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Publication)) return false;
+        Publication that = (Publication) o;
+        return year == that.year &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(publisher, that.publisher);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(year, title, publisher);
     }
 }
