@@ -3,17 +3,17 @@ package app;
 import data.Book;
 import data.Library;
 import data.Magazine;
-import utils.DataReader;
+import utils.Reader;
 
 public class LibraryControl {
     // zmienna do komunikacji z użytkownikiem
-    private DataReader dataReader;
+    private Reader dataReader;
 
     // biblioteka przechowująca dane
     private Library library;
 
     public LibraryControl() {
-        dataReader = new DataReader();
+        dataReader = new Reader();
         library = new Library();
     }
 

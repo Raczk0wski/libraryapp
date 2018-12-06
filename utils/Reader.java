@@ -5,10 +5,11 @@ import data.Magazine;
 
 import java.util.Scanner;
 
-public class DataReader {
+public class Reader {
+
     private Scanner sc;
 
-    public DataReader() {
+    public Reader() {
         sc = new Scanner(System.in);
     }
 
