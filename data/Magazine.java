@@ -39,10 +39,21 @@ public class Magazine extends Publication {
         setDay(day);
     }
 
-    public void printInfo() {
-        String info = getTitle() + "; " + getPublisher() + "; " + getYear() + "-"
-                + getMonth() + "-" + getDay() + "; " + getLanguage();
-        System.out.println(info);
+    @Override
+    public String toString() {
+        StringBuilder print = new StringBuilder(32);
+        print.append(getTitle());
+        print.append("; ");
+        print.append(getPublisher());
+        print.append("; ");
+        print.append(getYear());
+        print.append("; ");
+        print.append(getMonth());
+        print.append("; ");
+        print.append(getDay());
+        print.append("; ");
+        print.append(getLanguage());
+        return print.toString();
     }
 
     @Override
