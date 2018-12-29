@@ -30,8 +30,15 @@ public enum Option {
         return value + " - " + description;
     }
 
-    public static Option createFromInt(int option) {
-        return Option.values()[option];
+    public static Option createFromInt(int option) throws NoSuchFieldException {
+        Option result=null;
+        try{
+            result=Option.values()[option];
+        }catch (ArrayIndexOutOfBoundsException e)
+        {
+            throw new ArrayIndexOutOfBoundsException("Brak elemwntu o wskazanym ID!");
+        }
+        return result;
     }
 }
 

@@ -3,7 +3,11 @@ package app;
 import data.Book;
 import data.Library;
 import data.Magazine;
+import utils.LibraryUtils;
 import utils.Reader;
+
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 
 public class LibraryControl {
     // zmienna do komunikacji z użytkownikiem
@@ -19,29 +23,34 @@ public class LibraryControl {
 
     //Główna pętla
 
-    public void controlLoop() {
-        Option option;
-        printOptions();
-        while ((option = Option.createFromInt(dataReader.getInt())) != Option.EXIT) {
-            switch (option) {
-                case ADD_BOOK:
-                    addBook();
-                    break;
-                case ADD_MAGAZINE:
-                    addMagazine();
-                    break;
-                case PRINT_BOOKS:
-                    printBooks();
-                    break;
-                case PRINT_MAGAZINES:
-                    printMagazines();
-                    break;
-                default:
-                    System.out.println("Nie ma takiej opcji, wprowadź ponownie: ");
+    public void controlLoop() throws NoSuchFieldException {
+        Option option = null;
+        while (option != Option.EXIT) {
+            try {
+                printOptions();
+                option = Option.createFromInt(dataReader.getInt());
+                switch (option) {
+                    case ADD_BOOK:
+                        addBook();
+                        break;
+                    case ADD_MAGAZINE:
+                        addMagazine();
+                        break;
+                    case PRINT_BOOKS:
+                        printBooks();
+                        break;
+                    case PRINT_MAGAZINES:
+                        printMagazines();
+                        break;
+                    case EXIT:
+                        ;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
+            } catch (NumberFormatException | NoSuchElementException e) {
+                System.out.println("Wybrana opcja nie istnieje, wybierz ponownie:");
             }
-            printOptions();
         }
-        // zamykamy strumień wejścia
         dataReader.close();
     }
 
@@ -58,7 +67,7 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        library.printBooks();
+        LibraryUtils.printBooks(library);
     }
 
     private void addMagazine() {
@@ -67,6 +76,6 @@ public class LibraryControl {
     }
 
     private void printMagazines() {
-        library.printMagazines();
+        LibraryUtils.printMagazines(library);
     }
 }
