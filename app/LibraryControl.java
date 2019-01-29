@@ -3,23 +3,35 @@ package app;
 import data.Book;
 import data.Library;
 import data.Magazine;
+import utils.FileMenager;
 import utils.LibraryUtils;
 import utils.Reader;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
-public class LibraryControl {
+
+public class LibraryControl extends RuntimeException {
     // zmienna do komunikacji z użytkownikiem
     private Reader dataReader;
+    private FileMenager fileMenager;
 
     // biblioteka przechowująca dane
     private Library library;
 
     public LibraryControl() {
         dataReader = new Reader();
-        library = new Library();
+        fileMenager = new FileMenager();
+        try {
+            library = fileMenager.readLibraryFromFile();
+            System.out.println("Wczytano dane biblioteki z pliku ");
+        } catch (ClassNotFoundException | IOException e) {
+            library = new Library();
+            System.out.println("Utworzono nową bazę biblioteki.");
+        }
     }
+
 
     //Główna pętla
 
@@ -43,7 +55,7 @@ public class LibraryControl {
                         printMagazines();
                         break;
                     case EXIT:
-                        ;
+                        exit();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Wprowadzono niepoprawne dane, publikacji nie dodano");
@@ -52,6 +64,11 @@ public class LibraryControl {
             }
         }
         dataReader.close();
+    }
+
+    private void exit() {
+
+            fileMenager.writeLibraryToFile(library);
     }
 
     private void printOptions() {
