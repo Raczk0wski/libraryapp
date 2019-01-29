@@ -3,6 +3,7 @@ package data;
 import java.util.Objects;
 
 public class Magazine extends Publication {
+    private static final long serialVersionUID = 2061400934707882805L;
 
     private int Month;
     private int day;
